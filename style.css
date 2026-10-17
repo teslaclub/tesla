@@ -1,0 +1,231 @@
+:root {
+    --space-bg: #03030d;
+    --neon-cyan: #00f3ff;
+    --neon-magenta: #ff0055;
+    --tesla-red: #cc0000;
+    --alien-skin: #39ff14;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--space-bg);
+    color: #ffffff;
+    overflow-x: hidden;
+    background: radial-gradient(circle at center, #0a0f24 0%, #03030d 100%);
+}
+
+/* Background Stars Effect */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    animation: backgroundMove 100s linear infinite;
+}
+
+@keyframes backgroundMove {
+    from { background-position: 0 0, 40px 60px, 130px 270px; }
+    to { background-position: 550px 550px, 390px 410px, 380px 820px; }
+}
+
+/* Container Layout */
+.container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Typography */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #fff, var(--neon-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #a0a5c0;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+}
+
+/* Spectacular CSS Alien Hero */
+.alien-container {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 30px rgba(57, 255, 20, 0.4));
+    animation: levitate 4s ease-in-out infinite;
+}
+
+@keyframes levitate {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.alien-head {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 190px;
+    background: radial-gradient(circle at 50% 30%, #52ff37, #1b9c05);
+    border-radius: 50% 50% 45% 45% / 40% 40% 60% 60%;
+    box-shadow: inset 0 -10px 20px rgba(0,0,0,0.4);
+}
+
+.alien-eye {
+    position: absolute;
+    top: 65px;
+    width: 55px;
+    height: 35px;
+    background: #050505;
+    border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+    transform: rotate(15deg);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    overflow: hidden;
+}
+
+.alien-eye.left { left: 15px; transform: rotate(15deg); }
+.alien-eye.right { right: 15px; transform: rotate(-15deg); }
+
+.alien-eye::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    width: 12px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    transform: rotate(-10deg);
+}
+
+.alien-mouth {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 8px;
+    border-bottom: 3px solid #105c03;
+    border-radius: 50%;
+}
+
+/* Spacesuit & Tesla Badge */
+.alien-body {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 120px;
+    background: linear-gradient(135deg, #e0e0e0, #888888);
+    border-radius: 50% 50% 20% 20%;
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+}
+
+.tesla-logo {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    color: var(--tesla-red);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(204, 0, 0, 0.8);
+}
+
+/* Call To Action Box */
+.cta-box {
+    background: rgba(10, 15, 36, 0.7);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    padding: 2.5rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.speech-bubble {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: var(--neon-cyan);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.pitch-text {
+    font-size: 1.15rem;
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* Futuristic Button */
+.btn-invest {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    color: #fff;
+    background: linear-gradient(90deg, var(--tesla-red), var(--neon-magenta));
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
+}
+
+.btn-invest:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.8);
+    background: linear-gradient(90deg, var(--neon-cyan), #0055ff);
+}
+
+/* Cosmic Footer */
+footer {
+    margin-top: 4rem;
+    font-size: 0.85rem;
+    color: #555870;
+    letter-spacing: 1px;
+}
