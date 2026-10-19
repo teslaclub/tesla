@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Unilevel Circular - GLD</title>
+    <!-- Bootstrap 5 CSS via CDN -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; }
+        .bg-gold-light { background-color: #fffdf5; border: 1px solid #d4af37; }
+        .text-gold { color: #b45309; }
+        .node-card { min-width: 130px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <!-- Encabezado -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-dark">Simulador Sistema Unilevel Circular</h1>
+        <p class="lead text-muted">Estructura Lineal de Co-Financiamiento y Control de Mesas</p>
+    </div>
+
+    <!-- Secciones de Tablas y Control -->
+    <div class="row g-4 mb-5">
+        <!-- Etapa 1 -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="card-title mb-0">➡️ Etapa 1: Ingresos Iniciales ($1,500)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Gana</th>
+                                    <th>Premio Entregado</th>
+                                    <th>Fondo Empresa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sujetos 1, 2, 3</td>
+                                    <td><span class="badge bg-gold-light text-gold p-2">Sujeto 1</span></td>
+                                    <td>5g Oro + $500</td>
+                                    <td class="fw-semibold text-success">$3,100</td>
+                                </tr>
+                                <tr>
+                                    <td>Sujetos 4, 5, 6</td>
+                                    <td><span class="badge bg-gold-light text-gold p-2">Sujeto 2</span></td>
+                                    <td>5g Oro + $500</td>
+                                    <td class="fw-semibold text-success">$3,100</td>
+                                </tr>
+                                <tr>
+                                    <td>Sujetos 7, 8, 9</td>
+                                    <td><span class="badge bg-gold-light text-gold p-2">Sujeto 3</span></td>
+                                    <td>5g Oro + $500</td>
+                                    <td class="fw-semibold text-success">$3,100</td>
+                                </tr>
+                                <tr>
+                                    <td>Sujetos 10, 11, 12</td>
+                                    <td><span class="badge bg-gold-light text-gold p-2">Sujeto 4</span></td>
+                                    <td>5g Oro + $500</td>
+                                    <td class="fw-semibold text-success">$3,100</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Etapa 2 -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="card-title mb-0">🔄 Etapa 2: Cierre Circular ($500)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Posición Fila</th>
+                                    <th>Usuario</th>
+                                    <th>Aporte</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1° en Fila (Espera)</td>
+                                    <td><strong>Sujeto #13</strong></td>
+                                    <td><span class="badge bg-secondary p-2">$1,500 (Inicial)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2° en Fila (Empuja)</td>
+                                    <td><span class="text-primary fw-semibold">Sujeto #1</span></td>
+                                    <td><span class="badge bg-primary-subtle text-primary p-2">$500 (Reingreso)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3° en Fila (Empuja)</td>
+                                    <td><span class="text-primary fw-semibold">Sujeto #2</span></td>
+                                    <td><span class="badge bg-primary-subtle text-primary p-2">$500 (Reingreso)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4° en Fila (Completa)</td>
+                                    <td><span class="text-primary fw-semibold">Sujeto #3</span></td>
+                                    <td><span class="badge bg-primary-subtle text-primary p-2">$500 (Reingreso)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagrama de Flujo Visual -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light py-3">
+            <h5 class="card-title mb-0 text-dark fw-bold">Diagrama de Flujo: Cobro de la Posición #13</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-start gap-3 overflow-x-auto py-3">
+                
+                <!-- Nodo Ganador -->
+                <div class="card node-card bg-gold-light shadow-sm p-3">
+                    <span class="fs-6 fw-bold text-dark">Sujeto 13</span>
+                    <span class="badge bg-warning text-dark my-2">RECIBE ORO</span>
+                    <small class="text-muted">Aporte: $1500</small>
+                </div>
+
+                <div class="fs-3 text-muted">←</div>
+
+                <!-- Reingreso 1 -->
+                <div class="card node-card bg-light border-primary shadow-sm p-3">
+                    <span class="fs-6 fw-bold text-dark">Sujeto 1</span>
+                    <span class="badge bg-primary my-2">Aporta $500</span>
+                    <small class="text-primary-emphasis">Reingreso</small>
+                </div>
+
+                <div class="fs-3 text-muted">←</div>
+
+                <!-- Reingreso 2 -->
+                <div class="card node-card bg-light border-primary shadow-sm p-3">
+                    <span class="fs-6 fw-bold text-dark">Sujeto 2</span>
+                    <span class="badge bg-primary my-2">Aporta $500</span>
+                    <small class="text-primary-emphasis">Reingreso</small>
+                </div>
+
+                <div class="fs-3 text-muted">←</div>
+
+                <!-- Reingreso 3 -->
+                <div class="card node-card bg-light border-primary shadow-sm p-3">
+                    <span class="fs-6 fw-bold text-dark">Sujeto 3</span>
+                    <span class="badge bg-primary my-2">Aporta $500</span>
+                    <small class="text-primary-emphasis">Reingreso</small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle via CDN -->
+<script src="https://jsdelivr.net"></script>
+</body>
+</html>
