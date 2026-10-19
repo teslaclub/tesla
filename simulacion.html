@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cierre y Empuje - MLM</title>
+    <!-- Tailwind CSS para un diseño limpio y moderno -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-lg bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-6">
+        <!-- Encabezado -->
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-emerald-400">📊 Simulador de Matriz</h1>
+            <p class="text-slate-400 text-sm mt-1">Calculadora de Cierre de Ciclo y Empuje Automático</p>
+        </div>
+
+        <!-- Formulario de Variables / Inputs -->
+        <div class="space-y-4 mb-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Aporte por Persona (USD)</label>
+                <input type="number" id="aporte" value="125" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-emerald-300 focus:outline-none focus:border-emerald-500 font-mono text-lg" oninput="calcularMatriz()">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Cantidad de Personas para Cierre</label>
+                <input type="number" id="personas" value="12" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-emerald-300 focus:outline-none focus:border-emerald-500 font-mono text-lg" oninput="calcularMatriz()">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Monto de Empuje (Descuento para el #4)</label>
+                <input type="number" id="empuje" value="500" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-amber-400 focus:outline-none focus:border-amber-500 font-mono text-lg" oninput="calcularMatriz()">
+            </div>
+        </div>
+
+        <hr class="border-slate-700 my-6">
+
+        <!-- Pantalla de Resultados / Operaciones matemáticas -->
+        <div class="space-y-3 bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono">
+            <div class="flex justify-between items-center text-sm text-slate-400">
+                <span>Fórmula de acumulación:</span>
+                <span>Aporte × Personas</span>
+            </div>
+            
+            <div class="flex justify-between items-center text-xl font-bold border-b border-slate-800 pb-2">
+                <span class="text-slate-200">💰 Total Acumulado (#3):</span>
+                <span id="resTotal" class="text-emerald-400">$1,500.00</span>
+            </div>
+
+            <div class="flex justify-between items-center text-lg border-b border-slate-800 pb-2">
+                <span class="text-slate-300">📉 Resta por Empuje:</span>
+                <span id="resEmpuje" class="text-rose-400">-$500.00</span>
+            </div>
+
+            <div class="flex justify-between items-center text-2xl font-black pt-2">
+                <span class="text-slate-100">💵 Ganancia Neta (#3):</span>
+                <span id="resNeto" class="text-cyan-400">$1,000.00</span>
+            </div>
+        </div>
+
+        <!-- Alerta de Destino de Fondos -->
+        <div class="mt-4 p-3 bg-slate-900/50 border border-amber-500/30 rounded-lg flex items-start space-x-2">
+            <span class="text-amber-400 text-lg">🚀</span>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                <strong class="text-amber-400">Efecto de Empuje Activo:</strong> El <span class="text-slate-200 font-bold">Usuario #4</span> recibirá una inyección automática de <span id="alertEmpuje" class="text-amber-400 font-bold">$500.00 USD</span> para financiar su avance en la red al momento del cierre.
+            </p>
+        </div>
+    </div>
+
+    <!-- Lógica matemática en JavaScript -->
+    <script>
+        function calcularMatriz() {
+            // 1. Obtener los valores de los inputs en tiempo real
+            const aporte = parseFloat(document.getElementById('aporte').value) || 0;
+            const personas = parseInt(document.getElementById('personas').value) || 0;
+            const empuje = parseFloat(document.getElementById('empuje').value) || 0;
+
+            // 2. Realizar las operaciones aritméticas (Multiplicación y Resta)
+            const totalAcumulado = aporte * personas;
+            const gananciaNeta = totalAcumulado - empuje;
+
+            // 3. Formatear los números a moneda USD ($0.00)
+            const formatearUSD = (valor) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(valor);
+
+            // 4. Renderizar/Imprimir las respuestas en la pantalla de la calculadora
+            document.getElementById('resTotal').innerText = formatearUSD(totalAcumulado);
+            document.getElementById('resEmpuje').innerText = "-" + formatearUSD(empuje);
+            document.getElementById('resNeto').innerText = formatearUSD(gananciaNeta);
+            document.getElementById('alertEmpuje').innerText = formatearUSD(empuje);
+
+            // Cambiar estilos visuales si la ganancia neta es negativa (alerta de error lógico)
+            const resNetoElement = document.getElementById('resNeto');
+            if (gananciaNeta < 0) {
+                resNetoElement.className = "text-2xl font-black pt-2 text-rose-500";
+            } else {
+                resNetoElement.className = "text-2xl font-black pt-2 text-cyan-400";
+            }
+        }
+
+        // Ejecutar cálculo inicial al cargar la página
+        calcularMatriz();
+    </script>
+</body>
+</html>
