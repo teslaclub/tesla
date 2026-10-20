@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control e Inspección 3D - Escalera Eléctrica</title>
+    <!-- Hojas de estilo personalizadas -->
+    <link rel="stylesheet" href="escalera.css">
+    <!-- Dependencias de Three.js y OrbitControls para mover la cámara libremente -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <!-- Contenedor del renderizado tridimensional -->
+    <div id="canvas-container"></div>
+
+    <!-- Panel lateral de interacción de la API -->
+    <div id="panel-control">
+        <div>
+            <h2>Escalera Mecánica 3D</h2>
+            
+            <div class="monitor">
+                <div>Estado: <span id="txtEstado">APAGADO</span></div>
+                <div>Velocidad API: <span id="txtVelocidad">0</span>%</div>
+                <div>Sensor Presencia: <span id="txtSensor">Vacío (ECO)</span></div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="enviarAccion('encender?direccion=SUBIR')">▲ Arrancar Subida</button>
+                <button class="btn btn-success" onclick="enviarAccion('encender?direccion=BAJAR')">▼ Arrancar Bajada</button>
+                <button class="btn btn-danger" onclick="enviarAccion('apagar')">🛑 Parada de Emergencia</button>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="chkSensor" onchange="actualizarSensor(this.checked)">
+                <label for="chkSensor">Simular Pasajero en Sensor óptico</label>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            Arrastra con el **clic izquierdo** para rotar, **clic derecho** para desplazar y usa la **rueda** para hacer zoom.
+        </div>
+    </div>
+
+    <!-- Script de lógica de animación y peticiones REST -->
+    <script src="escalera.js"></script>
+</body>
+</html>
