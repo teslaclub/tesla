@@ -1,6 +1,6 @@
+
 // script.js
 
-// Base de datos de la red provista por tu esquema
 const datasetMatriz = [
     { sujetos: "Sujetos 1, 2, 3", beneficiario: "Sujeto 1", recompensa: "5g Oro + \$500", acumulado: "\$3,100" },
     { sujetos: "Sujetos 4, 5, 6", beneficiario: "Sujeto 2", recompensa: "5g Oro + \$500", acumulado: "\$3,100" },
@@ -18,32 +18,34 @@ const datasetMatriz = [
 ];
 
 const paletaGradientes = [
-    "linear-gradient(135deg, #b45309 0%, #d97706 100%)", // Ámbar
-    "linear-gradient(135deg, #047857 0%, #10b981 100%)", // Esmeralda
-    "linear-gradient(135deg, #4338ca 0%, #6366f1 100%)", // Índigo
-    "linear-gradient(135deg, #6b21a8 0%, #a855f7 100%)", // Púrpura
-    "linear-gradient(135deg, #be123c 0%, #f43f5e 100%)"  // Carmín
+    "linear-gradient(135deg, #b45309 0%, #d97706 100%)", 
+    "linear-gradient(135deg, #047857 0%, #10b981 100%)", 
+    "linear-gradient(135deg, #4338ca 0%, #6366f1 100%)", 
+    "linear-gradient(135deg, #6b21a8 0%, #a855f7 100%)", 
+    "linear-gradient(135deg, #be123c 0%, #f43f5e 100%)"  
 ];
 
-// Configuración de la animación mecánica
-const VELOCIDAD = 0.4; // Píxeles por cuadro (Sube más lento o rápido cambiando este valor)
-const ALTO_PELDANO = 85; // Espacio vertical que ocupa cada tarjeta en el riel
-const DISTANCIA_ENTRE_PELDANOS = 95; // Separación física entre escalones
+// Variables de Control Mecánico y de Flujo
+const VELOCIDAD = 0.4; 
+const ALTO_PELDANO = 85; 
+const DISTANCIA_ENTRE_PELDANOS = 95; 
 let referenciasPeldanos = [];
+let escaleraEnMovimiento = true; // Estado global del motor de animación
 
 function inicializarDashboard() {
     const tbody = document.getElementById('tabla-matriz-body');
     const contenedorEscalera = document.getElementById('escalera-dinamica');
+    const btnControl = document.getElementById('btn-control-flujo');
     
-    if (!tbody || !contenedorEscalera) return;
+    if (!tbody || !contenedorEscalera || !btnControl) return;
 
     let htmlTabla = '';
     contenedorEscalera.innerHTML = ''; 
 
     datasetMatriz.forEach((item, index) => {
-        // 1. Alimentar la tabla fija de auditoría
+        // 1. Alimentar la tabla de auditoría con un ID identificable por fila
         htmlTabla += `
-            <tr>
+            <tr id="fila-red-${index}">
                 <td class="font-monospace text-secondary">${item.sujetos}</td>
                 <td><span class="badge badge-oro p-2 text-uppercase font-monospace">${item.beneficiario}</span></td>
                 <td class="small text-light-emphasis">${item.recompensa}</td>
@@ -51,12 +53,11 @@ function inicializarDashboard() {
             </tr>
         `;
 
-        // 2. Crear físicamente los escalones en el DOM
+        // 2. Construir el peldaño
         const peldano = document.createElement('div');
         peldano.className = 'peldano-escalera p-3 text-white';
         peldano.style.background = paletaGradientes[index % paletaGradientes.length];
         
-        // Inyección de estructura visual interna
         peldano.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -73,12 +74,14 @@ function inicializarDashboard() {
             </div>
         `;
         
+        // INTERACCIÓN DE CLIC: Resalta el peldaño, detiene la escalera y enfoca la tabla
+        peldano.addEventListener('click', () => {
+            gestionarSeleccionElemento(index);
+        });
+
         contenedorEscalera.appendChild(peldano);
 
-        // Calcular la posición inicial de partida (distribuidos en fila india desde abajo hacia arriba)
-        // El primer elemento (Index 0) empieza arriba, el resto se encola hacia abajo fuera de la pantalla
         let yInicial = index * DISTANCIA_ENTRE_PELDANOS;
-
         referenciasPeldanos.push({
             domElement: peldano,
             y: yInicial
@@ -87,51 +90,89 @@ function inicializarDashboard() {
 
     tbody.innerHTML = htmlTabla;
 
-    // Arrancar el motor de animación continua
+    // Configurar el Botón Play/Pausa de Bootstrap
+    btnControl.addEventListener('click', alternarEstadoEscalera);
+
+    // Arrancar bucle
     maquinariaEscalera();
 }
 
+function alternarEstadoEscalera() {
+    const btnControl = document.getElementById('btn-control-flujo');
+    escaleraEnMovimiento = !escaleraEnMovimiento;
+
+    if (escaleraEnMovimiento) {
+        btnControl.innerText = "⏸️ PAUSAR ESCALERA";
+        btnControl.className = "btn btn-outline-warning fw-bold font-monospace shadow-sm";
+        // Limpiar cualquier selección previa al reanudar la marcha
+        removerTodasLasSelecciones();
+    } else {
+        btnControl.innerText = "▶️ REANUDAR ESCALERA";
+        btnControl.className = "btn btn-success fw-bold font-monospace shadow-sm text-slate-900";
+    }
+}
+
+function gestionarSeleccionElemento(indexSeleccionado) {
+    // 1. Pausar la maquinaria de forma automática al hacer clic
+    if (escaleraEnMovimiento) {
+        alternarEstadoEscalera();
+    }
+
+    // 2. Limpiar focos anteriores
+    removerTodasLasSelecciones();
+
+    // 3. Aplicar neón al peldaño clicado
+    referenciasPeldanos[indexSeleccionado].domElement.classList.add('peldano-seleccionado');
+
+    // 4. Aplicar iluminante de enfoque a la fila correspondiente en la tabla
+    const filaDestino = document.getElementById(`fila-red-${indexSeleccionado}`);
+    if (filaDestino) {
+        filaDestino.classList.add('fila-seleccionada');
+        // Desplazar la tabla de forma suave hacia la fila si hay desbordamiento
+        filaDestino.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+function removerTodasLasSelecciones() {
+    referenciasPeldanos.forEach(p => p.domElement.classList.remove('peldano-seleccionado'));
+    const filas = document.querySelectorAll('#tabla-matriz-body tr');
+    filas.forEach(f => f.classList.remove('fila-seleccionada'));
+}
+
 function maquinariaEscalera() {
-    const alturaContenedorMax = 620; // Sincronizado con la altura del CSS (.contenedor-escalera)
+    const alturaContenedorMax = 620;
 
+    // Solo alterar las coordenadas físicas si la escalera está en modo Play
+    if (escaleraEnMovimiento) {
+        referenciasPeldanos.forEach((peldano) => {
+            peldano.y -= VELOCIDAD;
+
+            if (peldano.y <= -ALTO_PELDANO) {
+                let coordenadaMasBaja = Math.max(...referenciasPeldanos.map(p => p.y));
+                peldano.y = coordenadaMasBaja + DISTANCIA_ENTRE_PELDANOS;
+            }
+        });
+    }
+
+    // El renderizado de estilos gráficos se mantiene activo para que conserve su posición actual al pausarse
     referenciasPeldanos.forEach((peldano) => {
-        // Restar píxeles para provocar el movimiento de ascenso vertical (hacia el píxel 0)
-        peldano.y -= VELOCIDAD;
-
-        // EFECTO LOOP INFINITO: Si el peldaño superó el límite superior del contenedor (-ALTO_PELDANO)
-        // se recalcula y se envía directamente al final de la fila de la escalera mecánica
-        if (peldano.y <= -ALTO_PELDANO) {
-            // Encuentra el peldaño que está más abajo en este momento para ponerse justo detrás de él
-            let coordenadaMasBaja = Math.max(...referenciasPeldanos.map(p => p.y));
-            peldano.y = coordenadaMasBaja + DISTANCIA_ENTRE_PELDANOS;
-        }
-
-        // CONTROL DIAGONAL DINÁMICO: Multiplica su altura actual por un factor para definir su desplazamiento horizontal.
-        // A medida que el peldaño sube (su coordenada Y se reduce hacia 0), su margen izquierdo disminuye,
-        // provocando la inclinación diagonal real de una escalera de centro comercial.
         let factorInclinacionDiagonal = (peldano.y / DISTANCIA_ENTRE_PELDANOS) * 16;
-        
-        // Validar márgenes para evitar que se desborde del contenedor de forma tosca
         let margenIzquierdoCalculado = Math.max(0, Math.min(220, factorInclinacionDiagonal));
 
-        // EFECTO FADE DE ENTRADA Y SALIDA: Los peldaños ganan transparencia si están en la cima o saliendo por el sótano
         let opacidadDinamica = 1;
         if (peldano.y < 40) {
-            opacidadDinamica = peldano.y / 40; // Se desvanece al llegar arriba
+            opacidadDinamica = peldano.y / 40;
         } else if (peldano.y > (alturaContenedorMax - ALTO_PELDANO)) {
-            opacidadDinamica = (alturaContenedorMax - peldano.y) / ALTO_PELDANO; // Aparece suavemente abajo
+            opacidadDinamica = (alturaContenedorMax - peldano.y) / ALTO_PELDANO;
         }
 
-        // Aplicar los cambios calculados al hardware gráfico de la pantalla
         peldano.domElement.style.top = `${peldano.y}px`;
         peldano.domElement.style.marginLeft = `${margenIzquierdoCalculado}px`;
         peldano.domElement.style.opacity = Math.max(0, Math.min(1, opacidadDinamica));
     });
 
-    // Ejecuta recursivamente la animación cuadro por cuadro a 60 hercios
     requestAnimationFrame(maquinariaEscalera);
 }
 
-// Inicializar al cargar el documento
 document.addEventListener('DOMContentLoaded', inicializarDashboard);
 
