@@ -7,7 +7,7 @@
     <!-- CDN Oficial de Bootstrap v5.3.8 -->
     <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Tu archivo CSS Personalizado -->
-    <link rel="stylesheet" href="css/css.css">
+    <link rel="stylesheet" href="css.css">
   </head>
   <body>
 
@@ -16,11 +16,17 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-bottom border-secondary pb-4 mb-5">
             <div>
                 <h1 class="fw-black text-warning tracking-tight">👑 Sistema de Matriz Cíclica</h1>
-                <p class="text-muted mb-0">Simulación en tiempo real y vista interactiva en escalera de peldaños</p>
+                <p class="text-muted mb-0">Simulación interactiva en escalera con controles de flujo y auditoría hibrida</p>
             </div>
-            <div class="bg-dark border border-secondary rounded p-3 mt-3 mt-md-0 text-center text-md-end">
-                <small class="text-muted d-block text-uppercase font-monospace" style="font-size: 0.7rem;">Valor de Control Fijo:</small>
-                <span class="fs-5 fw-bold text-success font-monospace">5g Oro = $900.00 USD</span>
+            <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+                <!-- Botón de Pausa / Reproducción de la Escalera Mecánica -->
+                <button id="btn-control-flujo" class="btn btn-outline-warning fw-bold font-monospace shadow-sm" type="button">
+                    ⏸️ PAUSAR ESCALERA
+                </button>
+                <div class="bg-dark border border-secondary rounded p-3 text-center text-md-end">
+                    <small class="text-muted d-block text-uppercase font-monospace" style="font-size: 0.7rem;">Valor de Control Fijo:</small>
+                    <span class="fs-5 fw-bold text-success font-monospace">5g Oro = $900.00 USD</span>
+                </div>
             </div>
         </div>
 
@@ -70,6 +76,7 @@
     <!-- API Bundle Oficial de Bootstrap v5.3.8 -->
     <script src="https://jsdelivr.net" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <!-- Tu archivo Lógico Personalizado -->
-    <script src="script/script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
+
