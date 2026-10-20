@@ -1,0 +1,61 @@
+/* css.css */
+
+body {
+  background-color: #0b111e;
+  color: #f1f5f9;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.card-custom {
+  background-color: #131c2e;
+  border: 1px solid #22314d;
+  border-radius: 1rem;
+}
+
+.table-custom {
+  color: #e2e8f0;
+}
+
+.table-custom th {
+  background-color: #1a2642 !important;
+  color: #94a3b8 !important;
+  border-bottom: 2px solid #2d3d5a;
+}
+
+.table-custom td {
+  background-color: #131c2e !important;
+  border-bottom: 1px solid #1e293b;
+  vertical-align: middle;
+}
+
+/* Mecánica Física de la Escalera Eléctrica */
+.contenedor-escalera {
+  background-color: #070d19;
+  border: 1px solid #1e293b;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  min-height: 680px;
+  position: relative;
+}
+
+.peldano-escalera {
+  max-width: 480px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.peldano-escalera:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+  z-index: 10;
+}
+
+.badge-oro {
+  background-color: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  font-weight: 700;
+}
