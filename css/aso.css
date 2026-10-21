@@ -1,61 +1,54 @@
-/* Importación de una tipografía elegante estilo romana para monedas y logotipos */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&display=swap');
-
+/* Fondo oscuro premium para resaltar el oro */
 body {
     margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background: radial-gradient(circle, #2c2c2c 0%, #111111 100%);
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: radial-gradient(circle, #16161a 0%, #0b0b0d 100%);
     overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Contenedor principal con perspectiva 3D */
-.coin-container {
-    width: 350px;
-    height: 350px;
     perspective: 1000px;
-    cursor: pointer;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.7));
 }
 
-/* Estructura de la moneda que ejecutará la animación de rotación */
+.coin-container {
+    width: 320px;
+    height: 320px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
 .coin {
     width: 100%;
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
     animation: spinGold 4s linear infinite;
-    transition: animation-play-state 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
 }
 
-/* Propiedades comunes para ambas caras de la moneda */
+/* Estado de pausa controlado por JS */
+.coin.paused {
+    animation-play-state: paused;
+}
+
 .coin-face {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* Cara frontal */
-.front {
+.coin-front {
     transform: rotateY(0deg);
 }
 
-/* Cara trasera volteada 180 grados en el eje Y */
-.back {
+.coin-back {
     transform: rotateY(180deg);
 }
 
-/* Definición de la animación de giro continuo en 3D (360 grados como moneda) */
+/* Animación de rotación infinita estilo moneda física */
 @keyframes spinGold {
     0% {
         transform: rotateY(0deg);
@@ -65,24 +58,3 @@ body {
     }
 }
 
-/* Clase de utilidad para cuando el usuario pausa la animación mediante JavaScript */
-.paused {
-    animation-play-state: paused;
-}
-
-/* Texto instructivo inferior */
-.instruction {
-    margin-top: 40px;
-    color: #e9b646;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.7;
-    animation: pulseText 2s ease-in-out infinite;
-    user-select: none;
-}
-
-@keyframes pulseText {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
