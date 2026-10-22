@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIF de fondo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-image: gif/djalci.mp4; /* Ruta de tu archivo GIF */
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-        }
-    </style>
+    <link href="css/ovni.css" rel="stylesheet" />
 </head>
 <body>
     <h1>HOLA</h1>
+<div class="contenedor-video">
+  <video autoplay muted loop playsinline id="video-fondo">
+    <source src="gif/djalci.mp4" type="video/mp4">
+    Tu navegador no soporta el formato de video.
+  </video>
+</div>
+
+<div class="contenido">
+  <h1>Tu contenido aquí</h1>
+</div>
+
 </body>
 </html>
